@@ -1,1 +1,1 @@
-tareas del curso de python
+repositorio para aprender a usar github
