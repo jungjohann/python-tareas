@@ -200,19 +200,21 @@ def atacar_jugador (enemigo,jugador):
         print("el enemigo ya a muerto")
         
 def batalla_aleatoria(jugador, enemigos):
-    ganador = False
-    
-    while  not ganador:
-        enemigo = random.choice(enemigos)
+    seguir = True
+    enemigo = random.choice(enemigos)
+    while   seguir:
+        
         print("Te ataca un enemigo, es un/a : ", enemigo.nombre)
         print(" Tu turno")
         atacar_enemigo(jugador, enemigo)
         if enemigo.vida <= 0:
             ganador = jugador
+            seguir = False
         else:    
             atacar_jugador(enemigo, jugador)
         if jugador.vida <= 0:
                 ganador = enemigo
+                seguir = False
         else:
             print("------------------")
     print("El ganador es: ", ganador.nombre)
@@ -221,37 +223,20 @@ def batalla_aleatoria(jugador, enemigos):
 
 
 enemigo1 = Orco("Orco",40,10,5,5,5,10)
-enemigo2 = Gargola("Gargola", 60, 8, 10, 5, 20, 5)
-enemigo3 = Sombra("Sombra", 15, 9, 10, 20, 5, 5)
-enemigo4 = Linch("Linch", 100, 7, 10, 20, 5, 5)
+enemigo2 = Gargola("Gargola", 60, 8, 4, 5, 20, 5)
+enemigo3 = Sombra("Sombra", 15, 9, 6, 15, 5, 5)
+enemigo4 = Linch("Linch", 100, 7, 5, 15, 5, 5)
 
 enemigos =[enemigo1, enemigo2, enemigo3, enemigo4]
 jugador = crear_jugador()
 mostrar_jugador(jugador)
 print("------------------")
 print("Iniciando la Aventura")
-for i in range(random.randint(1,10)):
+for i in range(random.randint(4,10)):
     batalla_aleatoria(jugador, enemigos)
     if jugador.vida <= 0:
         break
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print ("Fin de la Aventura")
 
 
 
