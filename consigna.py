@@ -9,6 +9,7 @@ class Personaje:
         self.inteligencia = inteligencia
         self.agilidad = agilidad
         self.fuerza = fuerza
+        self.turno =True
         
 
 class Guerrero(Personaje):
@@ -144,6 +145,7 @@ def esta_vivo(jugador):
         return False
 def morir(jugador):
     jugador.vida = 0
+    
     print(" ****** EL PERSONAJE A MUERTO ******")
     
 def atacar_enemigo(jugador, enemigo):
@@ -196,24 +198,42 @@ def atacar_jugador (enemigo,jugador):
                 print("te quedan ", jugador.vida, "puntos de vida")
     else:
         print("el enemigo ya a muerto")
+        
+def batalla_aleatoria(jugador, enemigos):
+    ganador = False
+    
+    while  not ganador:
+        enemigo = random.choice(enemigos)
+        print("Te ataca un enemigo, es un/a : ", enemigo.nombre)
+        print(" Tu turno")
+        atacar_enemigo(jugador, enemigo)
+        if enemigo.vida <= 0:
+            ganador = jugador
+        else:    
+            atacar_jugador(enemigo, jugador)
+        if jugador.vida <= 0:
+                ganador = enemigo
+        else:
+            print("------------------")
+    print("El ganador es: ", ganador.nombre)
 
 
-jugador = crear_jugador()
+
+
 enemigo1 = Orco("Orco",40,10,5,5,5,10)
 enemigo2 = Gargola("Gargola", 60, 8, 10, 5, 20, 5)
 enemigo3 = Sombra("Sombra", 15, 9, 10, 20, 5, 5)
 enemigo4 = Linch("Linch", 100, 7, 10, 20, 5, 5)
+
+enemigos =[enemigo1, enemigo2, enemigo3, enemigo4]
+jugador = crear_jugador()
 mostrar_jugador(jugador)
-atacar_enemigo(jugador, enemigo1)
-atacar_jugador (enemigo2,jugador)
-mostrar_enemigo(enemigo1)
-mostrar_jugador(jugador)
-atacar_enemigo(jugador, enemigo2)
-atacar_jugador(enemigo2, jugador)
-
-
-
-
+print("------------------")
+print("Iniciando la Aventura")
+for i in range(random.randint(1,10)):
+    batalla_aleatoria(jugador, enemigos)
+    if jugador.vida <= 0:
+        break
 
 
 
